@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0073e6;
+        }
+        .navbar .menu {
+            display: flex;
+            gap: 15px;
+        }
+        .navbar .menu a, .navbar button {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 12px;
+            transition: background 0.3s ease;
+        }
+        .navbar button {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .navbar button:hover {
+            background-color: #005bb5;
+        }
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .navbar .menu {
+                flex-direction: column;
+                width: 100%;
+            }
+            .navbar .menu a, .navbar button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        .container {
+            max-width: 1000px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            margin: 50px auto;
+        }
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+        .left-content {
+            max-width: 100%;
+            text-align: center;
+        }
+        .left-content h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        .left-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        @media (min-width: 768px) {
+            .left-content {
+                max-width: 50%;
+                text-align: left;
+            }
+            .left-content h1 {
+                font-size: 40px;
+            }
+            .user-info {
+                justify-content: flex-start;
+            }
+        }
+        .right-content {
+            max-width: 100%;
+            text-align: center;
+        }
+        @media (min-width: 768px) {
+            .right-content {
+                max-width: 45%;
+                text-align: right;
+            }
+        }
+        .card {
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .price-tag {
+            font-weight: bold;
+            color: #e63946;
+            margin-top: 10px;
+        }
+        .apply-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .apply-btn:hover {
+            background: #e63946;
+        }
+        .swiper {
+            width: 100%;
+            height: 200px;
+            margin-top: 20px;
+        }
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        /* From Uiverse.io by tranquoclong */ 
+.inputGroup {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 1em 0 1em 0;
+    max-width: 300px;
+    position: relative;
+  }
+  
+  .inputGroup input {
+    font-size: 100%;
+    padding: 0.8em;
+    outline: none;
+    border: 2px solid rgb(200, 200, 200);
+    background-color: transparent;
+    border-radius: 20px;
+    width: 100%;
+  }
+  
+  .inputGroup label {
+    font-size: 100%;
+    position: absolute;
+    left: 0;
+    padding: 0.8em;
+    margin-left: 0.5em;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    color: rgb(100, 100, 100);
+  }
+  
+  .inputGroup :is(input:focus, input:valid)~label {
+    transform: translateY(-50%) scale(.9);
+    margin: 0em;
+    margin-left: 1.3em;
+    padding: 0.4em;
+    background-color: #e8e8e8;
+  }
+  
+  .inputGroup :is(input:focus, input:valid) {
+    border-color: rgb(150, 150, 200);
+  }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">alloy</div>
+        <div class="menu">
+            <a href="#">Products</a>
+            <a href="#">Integrations</a>
+            <a href="#">Resources</a>
+            <a href="#">Login</a>
+            <button>Try it free</button>
+        </div>
+    </nav>
+    <div class="container">
+        <form action="/admin/<%=Details._id%>/update/?_method=PUT" method="post">
+            <div class="left-content">
+                <h1><!-- From Uiverse.io by tranquoclong --> 
+                    <div class="inputGroup">
+                        <input name="title" value="<%= Details.title %>" >
+                        <label for="name">Title</label>
+                    </div></h1>
+                <p><!-- From Uiverse.io by tranquoclong --> 
+                    <div class="inputGroup">
+                        <input name="description" value="<%= Details.description %>">
+                        <label for="name">Description</label>
+                    </div></p>
+                <div class="user-info">
+                    <img src="<%= Details.image %>" alt="User Image" >
+                    <span><!-- From Uiverse.io by tranquoclong --> 
+                        <div class="inputGroup">
+                            <input name="location" value="<%= Details.location %>">
+                            <label for="name">Location</label>
+                        </div></span>
+                        <span><!-- From Uiverse.io by tranquoclong --> 
+                            <div class="inputGroup">
+                                <input name="country" value="<%= Details.country %>">
+                                <label for="name">Country</label>
+                            </div></span>
+                </div>
+                <div class="inputGroup">
+                    <input name="price" value="<%= Details.price %>">
+                    <label for="name">Price</label>
+                </div>
+                <div class="inputGroup">
+                    <input  name="discount" value="<%= Details.discount %>">
+                    <label for="name">Discount</label>
+                </div>
+                <div class="inputGroup">
+                    <input name="image" value="<%= Details.image %>">
+                    <label for="name">Image</label>
+                </div>
+                <div class="inputGroup">
+                    <input name="image1" value="<%= Details.image1 %>">
+                    <label for="name">image2</label>
+                </div>
+                <div class="inputGroup">
+                    <input name="image2" value="<%= Details.image2 %>">
+                    <label for="name">image3</label>
+                </div>
+                <p>⭐⭐⭐⭐⭐ 4.9</p>
+                <button class="apply-btn">Apply Now</button>
+            </div>
+        </form>
+        <div class="right-content">
+            <div class="card">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="<%= Details.image %>" alt=""></div>
+                        <div class="swiper-slide"><img src="<%= Details.image1 %>" alt=""></div>
+                        <div class="swiper-slide"><img src="<%= Details.image2 %>" alt=""></div>
+                    </div>
+                </div>
+                <br>
+                <img src="<%= Details.image2 %>" alt="Credit Card Image"  style="height: 300px;" >
+                <p class="price-tag">₹<%= Details.price %>8 Rupee</p>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 30,
+            centeredSlides: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            
+        });
+    </script>
+</body>
+</html>

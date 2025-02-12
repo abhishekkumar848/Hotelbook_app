@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .navbar {
+            width: 100%;
+            background: black;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        .navbar h2 {
+            margin: 0;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .container {
+            max-width: 1000px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin: 50px auto;
+
+        }
+        .left-content h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .submit-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .submit-btn:hover {
+            background: #e63946;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h2>BrandName</h2>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Over 174,000+ hotels and homes across 35+ countries</h1>
+        <p>World's leading chain of hotels and homes.</p>
+        <br>
+        <form action="/create/new" method="post">
+            <div class="form-group">
+                <label for="location">Title</label>
+                <input type="text"  name="title">
+            </div>
+            <div class="form-group">
+                <label for="location">Description</label>
+                <input type="text" name="description" >
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" name="location" >
+            </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" name="country" >
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" name="price" >
+            </div>
+            <div class="form-group">
+                <label for="discount">Discount (%)</label>
+                <input type="number" name="discount" >
+            </div>
+            <div class="form-group">
+                <label for="image1">Image 1 URL</label>
+                <input type="text" name="image" >
+            </div>
+            <div class="form-group">
+                <label for="image2">Image 2 URL</label>
+                <input type="text" name="image1" >
+            </div>
+            <div class="form-group">
+                <label for="image3">Image 3 URL</label>
+                <input type="text" name="image2" >
+            </div>
+            <button class="submit-btn">Book Now</button>
+        </form>
+    </div>
+</body>
+</html>
