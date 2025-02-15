@@ -132,6 +132,10 @@ main().then(()=>{
 async function main() {
   await mongoose.connect(mogUlr);
 }
+// error middleware
+app.use((err,req,res,next)=>{
+  res.send("something is error")
+})
 // server
 app.listen(ports,(req,res)=>{
 console.log("server is working ",ports);
