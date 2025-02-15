@@ -14,8 +14,9 @@ app.set ("views",path.join(__dirname,"views"))
 
 let ports = 8080;
 //root
-app.get("/",(req,res)=>{
-    res.send("root is working now");
+app.get("/",async(req,res)=>{
+  let lists = await Listing.find({})
+    res.render("root.ejs",{lists});
 })
 // home route
 app.get("/listing",async(req,res)=>{
@@ -92,6 +93,13 @@ console.log(updateData);
   } catch (error) {
     console.log(error)
   }
+})
+// delete route
+app.get("/admin/:id/delete",async(req,res)=>{
+  let {id} = req.params;
+  let  allData = await Listing.findByIdAndDelete(id);
+  console.log(allData);
+  res.redirect("/admin")
 })
 // listing jsfile daa insert
 // app.get("/list",async (req,res)=>{

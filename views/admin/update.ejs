@@ -323,11 +323,8 @@
     <form action="/create" method="get">
         <button class="btn left" >Create now</button>
     </form>
-    <form action="" method="get">
-        <button class="btn middle" type="button">Left</button>
-    </form>
-    <form action="" method="get">
-        <button class="btn right" type="button">Left</button>
+    <form action="/" method="get">
+        <button class="btn middle">Logout</button>
     </form>
   </div>
   
@@ -383,7 +380,7 @@
                                 <div class="card-text"><%= list. description %></div>
                             </div>
                             <div class="additional-info">
-                                <p class="price">Price:<%= list.price.toLocaleString("en-IN") %></p>
+                                <p class="price">Price:<%= list.price %></p>
                                 <p class="discount">Discount:<%= list.discount %>% off</p>
                                 <p>Location: <%= list.location %></p>
                                 <p>Country: <%= list.country %></p>

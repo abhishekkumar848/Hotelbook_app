@@ -262,6 +262,10 @@
       box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
     }
   }
+  .footer{
+    margin: 20px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  }
     </style>
 </head>
 <body>
@@ -325,7 +329,7 @@
                                 <div class="card-text"><%= list. description %></div>
                             </div>
                             <div class="additional-info">
-                                <p class="price">Price:<%= list.price.toLocaleString("en-IN") %></p>
+                                <p class="price">Price:<%= list.price%></p>
                                 <p class="discount">Discount:<%= list.discount %>% off</p>
                                 <p>Location: <%= list.location %></p>
                                 <p>Country: <%= list.country %></p>
@@ -351,6 +355,12 @@
     <div class="dot"></div>
     <div class="dot"></div>
   </section>
-  
+  <br>
+  <br>
+  <div class="footer">
+    <%- include('../include/footer.ejs'); %>
+  </div>
+
+
 </body>
 </html>

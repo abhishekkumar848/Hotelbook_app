@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+
+        /* styles.css */
+
+/* styles.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-image: url("https://assets.lummi.ai/assets/QmS86YpDHbG5p5raDiccDYHkrvE2VHW6XA7yRyFJmDakLH?auto=format&w=1500");
+    color: #333;
+    background-size: cover;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url("https://img.freepik.com/free-photo/green-iridescent-texture-background_23-2151839373.jpg?t=st=1739649490~exp=1739653090~hmac=f7ba63a79cee2c428f432c72a5c1da9a04604b440a195800fe2bec4c0b327667&w=1380");
+    background-size: cover;
+    padding: 15px;
+    color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ffccbc;
+}
+
+.login-btn {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #e64a19;
+}
+
+.hero {
+    text-align: center;
+    padding: 60px;
+    background-image: url("https://assets.lummi.ai/assets/QmWYgBRsCNXWiiHV8CF5iht9TErk6uk3dXXp5HhhE1q6No?auto=format&w=1500");
+    background-size:auto;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+.hero h1 {
+    font-size: 42px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hero p {
+    font-size: 20px;
+    margin: 15px 0;
+}
+
+.btn {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background-color: #e64a19;
+}
+
+.user-admin {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.user-btn, .admin-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.user-btn:hover, .admin-btn:hover {
+    background-color: #388e3c;
+}
+
+.products {
+    text-align: center;
+    padding: 40px;
+}
+
+.product-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.product {
+    background-color: transparent ;
+    color: aliceblue;
+    
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgb(0, 0, 0);
+    width: 220px;
+    transition: transform 0.3s;
+}
+
+.product:hover {
+    transform: scale(1.05);
+}
+
+.product img {
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+}
+
+.product button {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.product button:hover {
+    background-color: #e64a19;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-image: url("https://img.freepik.com/free-photo/green-iridescent-texture-background_23-2151839373.jpg?t=st=1739649490~exp=1739653090~hmac=f7ba63a79cee2c428f432c72a5c1da9a04604b440a195800fe2bec4c0b327667&w=1380");
+    background-size: cover;
+    color: white;
+    margin-top: 40px;
+    border-radius: 20px;
+    font-size: 16px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">My Store</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><button class="login-btn">Login/Signup</button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h1>Welcome to Our Store</h1>
+        <p>Best products at the best prices.</p>
+        <button class="btn">Shop Now</button>
+    </section>
+    
+    <section class="user-admin">
+        <button class="user-btn"><a href="/listing" class="user-btn" style="text-decoration: none;">User Dashboard</a></button>
+        <button class="admin-btn"><a href="/admin" style="text-decoration: none;" class="admin-btn">Admin Panel</a></button>
+    </section>
+    
+    <section class="products">
+        <h2>Our Products</h2>
+        <div class="product-grid">
+            <div class="product">
+                <img src="<%= lists[8].image1 %>" alt="Product 1">
+                <h3>Product 1</h3>
+                <p>$10.00</p>
+                <button>Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="<%= lists[2].image1 %>" alt="Product 2">
+                <h3>Product 2</h3>
+                <p>$15.00</p>
+                <button>Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="<%= lists[10].image1 %>" alt="Product 3">
+                <h3>Product 3</h3>
+                <p>$20.00</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 My Store. All rights reserved.</p>
+    </footer>
+</body>
+</html>

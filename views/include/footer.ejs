@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Merienda:wght@300..900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+      footer {
+        background-image: url("https://img.freepik.com/free-photo/abstract-blue-gradient-pattern-background_53876-104701.jpg?t=st=1739563091~exp=1739566691~hmac=b6374cdf3bf5fdabc91ee93e2674c4e6b225e0db46062f8a7d0ad848018a18ed&w=1380");
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+        border-radius: 15px;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-logo img {
+        max-width: 100px;
+        margin-bottom: 20px;
+        border-radius: 100%;
+        box-shadow: rgb(50, 50, 93) 0px 50px 100px -20px, rgb(0, 0, 0) 0px 30px 60px -30px, rgba(10, 37, 64, 0.975) 0px -2px 6px 0px inset;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .footer-links a {
+        color: #fff;
+        margin: 10px 15px;
+        text-decoration: none;
+        font-size: 16px;
+        font-family: "Poppins", serif;
+  font-weight: 6;
+  font-style: normal;
+  text-shadow: rgba(0, 0, 0, 0.449) 2px 2px 2px;
+      }
+
+      .footer-links a:hover {
+         font-weight: 1000;
+      }
+
+      .footer-contact {
+        color: #fff;
+        margin: 10px 15px;
+        text-decoration: none;
+        font-size: 16px;
+        font-family: "Poppins", serif;
+  font-weight: 6;
+  font-style: normal;
+  text-shadow: rgba(0, 0, 0, 0.449) 2px 2px 2px;
+      }
+
+      .footer-search {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .footer-search input {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 20px;
+        margin-right: 10px;
+        background-color: transparent;
+         opacity: 20;
+         box-shadow: rgba(0, 0, 0, 0) 0px 54px 55px, rgba(0, 0, 0, 0.323) 0px -12px 30px, rgba(0, 0, 0, 0.671) 0px 4px 6px, rgba(0, 0, 0, 0.37) 0px 12px 13px, rgba(0, 0, 0, 0) 0px -3px 5px; ;
+      }
+
+      .footer-search button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        background-color: #A8EB12; /* Change the color to match your design */
+        color: #fff;
+        border-radius: 20px;
+        cursor: pointer;
+        background-color: transparent;
+         opacity: 20;
+         box-shadow: rgba(0, 0, 0, 0) 0px 54px 55px, rgba(0, 0, 0, 0.323) 0px -12px 30px, rgba(0, 0, 0, 0.671) 0px 4px 6px, rgba(0, 0, 0, 0.37) 0px 12px 13px, rgba(0, 0, 0, 0) 0px -3px 5px; ;
+      }
+
+      .footer-search button:hover {
+        background-color: #6BAFED;
+        font-family: "Poppins", serif;
+  font-weight: 6;
+      }
+
+      
+
+      @media (max-width: 768px) {
+        .footer-links {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .footer-links a {
+          margin: 10px 0;
+        }
+
+        .footer-search {
+          flex-direction: column;
+        }
+
+        .footer-search input,
+        .footer-search button {
+          width: 100%;
+          margin-bottom: 10px;
+         background-color: transparent;
+         opacity: 20;
+         box-shadow: rgba(0, 0, 0, 0) 0px 54px 55px, rgba(0, 0, 0, 0.323) 0px -12px 30px, rgba(0, 0, 0, 0.671) 0px 4px 6px, rgba(0, 0, 0, 0.37) 0px 12px 13px, rgba(0, 0, 0, 0) 0px -3px 5px; ;
+        
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <footer>
+      <div class="footer-container">
+        <div class="footer-logo">
+          <img src="image/IMG_20230211_195143.jpg" alt="Your Company Logo" />
+        </div>
+        <div class="footer-links">
+          <a href="#">Features</a>
+          <a href="#">Plans & Pricing</a>
+          <a href="#">News & Blogs</a>
+          <a href="#">Careers</a>
+          <a href="#">About Us</a>
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+          <a href="#">Cookies</a>
+        </div>
+        <div class="footer-contact">
+          <p>Email: info@yourcompany.com</p>
+          <p>Phone: +1 234 567 890</p>
+        </div>
+        <div class="footer-search">
+          <input type="text" placeholder="Search..." />
+          <button>Search</button>
+        </div>
+       
+      </div>
+    </footer>
+  </body>
+</html>
