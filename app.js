@@ -3,104 +3,135 @@ const path = require("path");
 const mongoose = require("mongoose");
 const Listing = require("./models/listing");
 const { error } = require("console");
-const methodOverride = require('method-override')
+const methodOverride = require("method-override");
+const ExpressError = require("./utils/ExpressError");
 const app = express();
 
-app.use(methodOverride('_method'))
-app.use(express.static(path.join(__dirname,"public")))
-app.use(express.urlencoded({extended:true}))
-app.set("view engine","ejs")
-app.set ("views",path.join(__dirname,"views"))
+app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 let ports = 8080;
 //root
-app.get("/",async(req,res)=>{
-  let lists = await Listing.find({})
-    res.render("root.ejs",{lists});
-})
+app.get("/", async (req, res) => {
+  let lists = await Listing.find({});
+  res.render("root.ejs", { lists });
+});
 // home route
-app.get("/listing",async(req,res)=>{
- let lists = await Listing.find({});
- res.render("listing/home.ejs",{lists});
-})
+app.get("/listing", async (req, res) => {
+  let lists = await Listing.find({});
+  res.render("listing/home.ejs", { lists });
+});
 // show route
-app.get("/listing/:id",async(req,res)=>{
-  let {id} = req.params;
+app.get("/listing/:id", async (req, res,next) => {
+  try {
+    let { id } = req.params;
   let listDetails = await Listing.findById(id);
   // console.log(listDetails);
-  res.render("listing/show.ejs",{listDetails})
- })
+  res.render("listing/show.ejs", { listDetails });
+  } catch (err) {
+    next(err)
+  }
+  
+});
 //--------------------------------admin page starts-------------------------------------------
 //admin update route
-app.get("/admin",async(req,res)=>{
+app.get("/admin", async (req, res) => {
   let lists = await Listing.find({});
-  res.render("admin/update.ejs",{lists});
- }) 
+  res.render("admin/update.ejs", { lists });
+});
 
- // edit route
- app.get("/admin/:id",async(req,res)=>{
-  let {id} = req.params;
+// edit route
+app.get("/admin/:id", async (req, res) => {
+  let { id } = req.params;
   let Details = await Listing.findById(id);
   // console.log(listDetails);
-  res.render("admin/edit.ejs",{Details})
- })
- // create new room
-app.get("/create",async(req,res)=>{
+  res.render("admin/edit.ejs", { Details });
+});
+// create new room
+app.get("/create", async (req, res) => {
   res.render("admin/new.ejs");
-})
+});
 
 // new route
-app.post("/create/new",(req,res)=>{
-  let{title,description,location,country,price,discount,image,image1,image2}  = req.body;
+app.post("/create/new", (req, res) => {
+  let {
+    title,
+    description,
+    location,
+    country,
+    price,
+    discount,
+    image,
+    image1,
+    image2,
+  } = req.body;
   console.log(req.body);
-  let Datanew = new Listing ({
+  let Datanew = new Listing({
     title: title,
-    description:description,
-    image:  image,
-    image1:image1,
-    image2:image2,
+    description: description,
+    image: image,
+    image1: image1,
+    image2: image2,
     price: price,
-    discount:discount,
+    discount: discount,
     location: location,
     country: country,
   });
-  Datanew.save().then(()=>{
-    console.log("add data ")
-  }).catch((err)=>{
-    console.log(err);
-  })
+  Datanew.save()
+    .then(() => {
+      console.log("add data ");
+    })
+    .catch((err) => {
+      next(err);
+    });
   res.redirect("/admin");
-})
+});
 // update route
-app.put("/admin/:id/update", async (req,res)=>{
-
+app.put("/admin/:id/update", async (req, res) => {
   try {
-    let {id} = req.params;
-  let{title,description,location,country,price,discount,image,image1,image2}= req.body;
-  let updateData = await Listing.findByIdAndUpdate({_id:id},{
-    title:title,
-    description:description,
-    price:price,
-    discount:discount,
-    location: location,
-    country: country,
-    image:  image,
-    image1:image1,
-    image2:image2,
-  },{new: true})
-console.log(updateData);
- res.redirect("/admin")
-  } catch (error) {
-    console.log(error)
+    let { id } = req.params;
+    let {
+      title,
+      description,
+      location,
+      country,
+      price,
+      discount,
+      image,
+      image1,
+      image2,
+    } = req.body;
+    let updateData = await Listing.findByIdAndUpdate(
+      { _id: id },
+      {
+        title: title,
+        description: description,
+        price: price,
+        discount: discount,
+        location: location,
+        country: country,
+        image: image,
+        image1: image1,
+        image2: image2,
+      },
+      { new: true }
+    );
+    console.log(updateData);
+    res.redirect("/admin");
+  } catch (err) {
+    next(err);
   }
-})
+});
 // delete route
-app.get("/admin/:id/delete",async(req,res)=>{
-  let {id} = req.params;
-  let  allData = await Listing.findByIdAndDelete(id);
+app.get("/admin/:id/delete", async (req, res) => {
+  let { id } = req.params;
+  let allData = await Listing.findByIdAndDelete(id);
   console.log(allData);
-  res.redirect("/admin")
-})
+  res.redirect("/admin");
+});
 // listing jsfile daa insert
 // app.get("/list",async (req,res)=>{
 //   let  housedata = new Listing ({
@@ -123,20 +154,26 @@ app.get("/admin/:id/delete",async(req,res)=>{
 //   res.send("data was add now")
 // })
 // mongoose server
-let mogUlr = "mongodb://127.0.0.1:27017/HotelBooking"
-main().then(()=>{
-    console.log("complete server now mongoose")
-}).catch(err => console.log(err));
-
+let mogUlr = "mongodb://127.0.0.1:27017/HotelBooking";
+main()
+  .then(() => {
+    console.log("complete server now mongoose");
+  })
+  .catch((err) => console.log(err));
 
 async function main() {
   await mongoose.connect(mogUlr);
 }
+// page not found
+app.all("*", (err,req, res, next) => {
+  next(new ExpressError(404, "page not found"));
+});
 // error middleware
-app.use((err,req,res,next)=>{
-  res.send("something is error")
-})
+app.use((err, req, res, next) => {
+  let { status, message } = err;
+  res.render("error.ejs", { message });
+});
 // server
-app.listen(ports,(req,res)=>{
-console.log("server is working ",ports);
-})
+app.listen(ports, (req, res) => {
+  console.log("server is working ", ports);
+});
