@@ -1,185 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Show Page</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            background-color: #f0f2f5;
-            color: #333;
-        }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .navbar .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #0073e6;
-        }
-        .navbar .menu {
-            display: flex;
-            gap: 15px;
-        }
-        .navbar .menu a, .navbar button {
-            text-decoration: none;
-            color: #333;
-            padding: 8px 12px;
-            transition: background 0.3s ease;
-        }
-        .navbar button {
-            background-color: #0073e6;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .navbar button:hover {
-            background-color: #005bb5;
-        }
-        .container {
-            max-width: 1000px;
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 50px auto;
-        }
-        .left-content {
-            max-width: 50%;
-        }
-        .left-content h1 {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
-        .left-content p {
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-        .right-content {
-            max-width: 45%;
-            text-align: center;
-        }
-        .card {
-            width: 100%;
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-        }
-        .card img {
-            width: 100%;
-            border-radius: 10px;
-        }
-        .price-tag {
-            font-weight: bold;
-            color: #e63946;
-            margin-top: 10px;
-        }
-        .apply-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: black;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .apply-btn:hover {
-            background: #e63946;
-        }
-        .swiper {
-            width: 100%;
-            height: 200px;
-            margin-top: 20px;
-        }
-        .swiper-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      body {
+        background-color: #f0f2f5;
+        color: #333;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .navbar .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #0073e6;
+      }
+      .navbar .menu {
+        display: flex;
+        gap: 15px;
+      }
+      .navbar .menu a,
+      .navbar button {
+        text-decoration: none;
+        color: #333;
+        padding: 8px 12px;
+        transition: background 0.3s ease;
+      }
+      .navbar button {
+        background-color: #0073e6;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .navbar button:hover {
+        background-color: #005bb5;
+      }
+      .container {
+        max-width: 1000px;
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 50px auto;
+      }
+      .left-content {
+        max-width: 50%;
+      }
+      .left-content h1 {
+        font-size: 40px;
+        margin-bottom: 10px;
+      }
+      .left-content p {
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .user-info img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+      .right-content {
+        max-width: 45%;
+        text-align: center;
+      }
+      .card {
+        width: 100%;
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+      }
+      .card img {
+        width: 100%;
+        border-radius: 10px;
+      }
+      .price-tag {
+        font-weight: bold;
+        color: #e63946;
+        margin-top: 10px;
+      }
+      .apply-btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: black;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .apply-btn:hover {
+        background: #e63946;
+      }
+      .swiper {
+        width: 100%;
+        height: 200px;
+        margin-top: 20px;
+      }
+      .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+
+      .review-form {
+        background: #fff;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 50px ;
+        max-width: 100%;
+        
+    }
+    .review-form h2 {
+        margin-bottom: 15px;
+    }
+    .review-form .form-group {
+        margin-bottom: 15px;
+    }
+    .review-form label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .review-form input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+    .review-form textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+        resize: vertical;
+    }
+    .review-form button {
+        background: #007BFF;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+    .review-form button:hover {
+        background: #0056b3;
+    }
+      
+        
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="navbar">
-        <div class="logo">alloy</div>
-        <div class="menu">
-            <a href="#">Products</a>
-            <a href="#">Integrations</a>
-            <a href="#">Resources</a>
-            <a href="#">Login</a>
-            <button>Try it free</button>
-        </div>
+      <div class="logo">alloy</div>
+      <div class="menu">
+        <a href="#">Products</a>
+        <a href="#">Integrations</a>
+        <a href="#">Resources</a>
+        <a href="#">Login</a>
+        <button>Try it free</button>
+      </div>
     </nav>
     <div class="container">
-        <div class="left-content">
-            <h1><%= listDetails.title %></h1>
-            <p><%= listDetails.description %></p>
-            <div class="user-info">
-                <img src="<%= listDetails.image %>" alt="User Image">
-                <span><%= listDetails.location %> / <%= listDetails.country %></span>
-            </div>
-            <p>⭐⭐⭐⭐⭐ 4.9</p>
-            <button class="apply-btn">Apply Now — It’s Free</button>
+      <div class="left-content">
+        <h1><%= listDetails.title %></h1>
+        <p><%= listDetails.description %></p>
+        <div class="user-info">
+          <img src="<%= listDetails.image %>" alt="User Image" />
+          <span><%= listDetails.location %> / <%= listDetails.country %></span>
         </div>
-        <div class="right-content">
-            <div class="card">
-                <div class="swiper mySwiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img src="<%= listDetails.image %>" alt=""></div>
-                        <div class="swiper-slide"><img src="<%= listDetails.image1 %>" alt=""></div>
-                        <div class="swiper-slide"><img src="<%= listDetails.image2 %>" alt=""></div>
-                    </div>
-                </div>
-                <br>
-                <img src="<%= listDetails.image2 %>" alt="Credit Card Image"  style="height: 300px;" >
-                <p class="price-tag">₹<%= listDetails.price %>8 Rupee</p>
+        <p>⭐⭐⭐⭐⭐ 4.9</p>
+        <button class="apply-btn">Apply Now — It’s Free</button>
+      </div>
+      <div class="right-content">
+        <div class="card">
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="<%= listDetails.image %>" alt="" />
+              </div>
+              <div class="swiper-slide">
+                <img src="<%= listDetails.image1 %>" alt="" />
+              </div>
+              <div class="swiper-slide">
+                <img src="<%= listDetails.image2 %>" alt="" />
+              </div>
             </div>
+          </div>
+          <br />
+          <img
+            src="<%= listDetails.image2 %>"
+            alt="Credit Card Image"
+            style="height: 300px"
+          />
+          <p class="price-tag">₹<%= listDetails.price %>8 Rupee</p>
         </div>
+      </div>
+    </div>
+
+    <!-- review-form -->
+    <div class="review-form">
+        <h2>Submit Your Review</h2>
+        <form action="/listing/<%= listDetails.id %>/review" method="post"> <h2>Submit Your Review</h2>
+            <div class="form-group">
+                <label for="rating">Rating (1 to 5):</label>
+                <input type="number" id="rating" name="reviews[rating]" min="1" max="5" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="reviews[comment]" maxlength="250" required></textarea>
+            </div>
+            <button type="submit">Submit Review</button>
+        </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        var swiper = new Swiper(".mySwiper", {
-            spaceBetween: 30,
-            centeredSlides: true,
-            autoplay: {
-                delay: 2500,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            
-        });
+      var swiper = new Swiper(".mySwiper", {
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
     </script>
-</body>
+  </body>
 </html>

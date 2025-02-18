@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const Listing = require("./models/listing");
+const Review = require("./models/reviews");
 const { error } = require("console");
 const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError");
@@ -34,7 +35,18 @@ app.get("/listing/:id", async (req, res,next) => {
   } catch (err) {
     next(err)
   }
+  // Review  page 
+  app.post("/listing/:id/review" , async(req,res)=>{
+    let addListing  = await Listing.findById(req.params.id);
+    let newReview = new Review(req.body.reviews)
   
+    addListing.reviews.push(newReview)
+    await addListing.save();
+    await newReview.save();
+    console.log("hello",addListing,newReview)
+    res.send("add now review")
+
+  })
 });
 //--------------------------------admin page starts-------------------------------------------
 //admin update route
