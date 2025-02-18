@@ -26,27 +26,33 @@ app.get("/listing", async (req, res) => {
   res.render("listing/home.ejs", { lists });
 });
 // show route
-app.get("/listing/:id", async (req, res,next) => {
+app.get("/listing/:id", async (req, res, next) => {
   try {
     let { id } = req.params;
-  let listDetails = await Listing.findById(id);
-  // console.log(listDetails);
-  res.render("listing/show.ejs", { listDetails });
+    let listDetails = await Listing.findById(id).populate("reviews");
+    // console.log(listDetails);
+    res.render("listing/show.ejs", { listDetails });
   } catch (err) {
-    next(err)
+    next(err);
   }
-  // Review  page 
-  app.post("/listing/:id/review" , async(req,res)=>{
-    let addListing  = await Listing.findById(req.params.id);
-    let newReview = new Review(req.body.reviews)
-  
-    addListing.reviews.push(newReview)
-    await addListing.save();
-    await newReview.save();
-    console.log("hello",addListing,newReview)
-    res.send("add now review")
+});
+// Review  page add
+app.post("/listing/:id/review", async (req, res) => {
+  let addListing = await Listing.findById(req.params.id);
+  let newReview = new Review(req.body.review);
 
-  })
+  addListing.reviews.push(newReview);
+  await addListing.save();
+  await newReview.save();
+  console.log("hello", addListing, newReview);
+  res.redirect(`/listing/${addListing._id}`);
+});
+//review delete
+app.delete("/listing/:id/review/:reviewId", async (req, res) => {
+  let { id ,reviewId} = req.params;
+  let revDelete = await Review.findByIdAndDelete(reviewId);
+  let upDATElist = await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId} })  
+  res.redirect(`/listing/${id}`);
 });
 //--------------------------------admin page starts-------------------------------------------
 //admin update route
@@ -58,7 +64,7 @@ app.get("/admin", async (req, res) => {
 // edit route
 app.get("/admin/:id", async (req, res) => {
   let { id } = req.params;
-  let Details = await Listing.findById(id);
+  let Details = await Listing.findById(id).populate("reviews");
   // console.log(listDetails);
   res.render("admin/edit.ejs", { Details });
 });
@@ -144,6 +150,13 @@ app.get("/admin/:id/delete", async (req, res) => {
   console.log(allData);
   res.redirect("/admin");
 });
+// Review  page delete
+app.delete("/admin/:id/review/:reviewId", async (req, res) => {
+  let { id ,reviewId} = req.params;
+  await Review.findByIdAndDelete(reviewId);
+  await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId} })  
+  res.redirect(`/admin/${id}`);
+});
 // listing jsfile daa insert
 // app.get("/list",async (req,res)=>{
 //   let  housedata = new Listing ({
@@ -177,7 +190,7 @@ async function main() {
   await mongoose.connect(mogUlr);
 }
 // page not found
-app.all("*", (err,req, res, next) => {
+app.all("*", (err, req, res, next) => {
   next(new ExpressError(404, "page not found"));
 });
 // error middleware
