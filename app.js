@@ -7,13 +7,30 @@ const { error } = require("console");
 const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError");
 const app = express();
+const session = require("express-session");
+const flash = require('connect-flash');
 
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-
+// express session
+app.use(session({ secret: "myScreateCode",
+     resave: false,
+     saveUninitialized: true ,
+     cookie:{
+      expires:Date.now()+7*24*60*60*1000,
+      maxAge:7*24*60*60*1000,
+      httpOnly:true,
+     }
+    }));
+    // flash message 
+app.use(flash());
+app.use((req,res,next)=>{
+  res.locals.msg = req.flash("success")
+  next()
+})
 let ports = 8080;
 //root
 app.get("/", async (req, res) => {
@@ -105,6 +122,7 @@ app.post("/create/new", (req, res) => {
     .catch((err) => {
       next(err);
     });
+  req.flash("success","new Hotel add now ");
   res.redirect("/admin");
 });
 // update route
