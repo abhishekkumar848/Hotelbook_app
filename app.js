@@ -8,10 +8,12 @@ const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError");
 const app = express();
 const session = require("express-session");
-const flash = require('connect-flash');
-const passport = require("passport")
-const LocalStrategy = require("passport-local")
-const User = require("./models/user")
+const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user");
+const userRouter = require("./router/user");
+const {isLogin} = require("./middleware")
 
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
@@ -19,39 +21,57 @@ app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 // express session
-app.use(session({ secret: "myScreateCode",
-     resave: false,
-     saveUninitialized: true ,
-     cookie:{
-      expires:Date.now()+7*24*60*60*1000,
-      maxAge:7*24*60*60*1000,
-      httpOnly:true,
-     }
-    }));
-    // flash message 
+app.use(
+  session({
+    secret: "myScreateCode",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+    },
+  })
+);
+// flash message
 app.use(flash());
-// passport 
+// passport
 
 app.use(passport.initialize());
 app.use(passport.session());
-// use static authenticate method of model in LocalStrategy 
+// use static authenticate method of model in LocalStrategy
 passport.use(new LocalStrategy(User.authenticate()));
 // use static serialize and deserialize of model for passport session support
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use((req, res, next) => {
+  res.locals.msg = req.flash("success");
+  res.locals.error = req.flash("error");
+  res.locals.currUser = req.user;
+  next();
+});
 
-
-app.use((req,res,next)=>{
-  res.locals.msg = req.flash("success")
-  next()
-})
 let ports = 8080;
 //root
 app.get("/", async (req, res) => {
   let lists = await Listing.find({});
   res.render("root.ejs", { lists });
 });
+// user signup
+app.use("/", userRouter);
+
+// ADD DEMO USER
+// app.get("/user",async (req,res)=>{
+//  let user1 = new User({
+//   email:"abhi@gmail.com",
+//   username:"Abhishek"
+//  });
+
+//  let result = await User.register(user1,"hello")
+//  console.log(result);
+//  res.send(result);
+// })
 // home route
 app.get("/listing", async (req, res) => {
   let lists = await Listing.find({});
@@ -61,9 +81,10 @@ app.get("/listing", async (req, res) => {
 app.get("/listing/:id", async (req, res, next) => {
   try {
     let { id } = req.params;
-    let listDetails = await Listing.findById(id).populate("reviews");
+    let listDetails = await Listing.findById(id).populate("reviews").populate("owner");
     // console.log(listDetails);
     res.render("listing/show.ejs", { listDetails });
+    console.log(listDetails)
   } catch (err) {
     next(err);
   }
@@ -81,14 +102,16 @@ app.post("/listing/:id/review", async (req, res) => {
 });
 //review delete
 app.delete("/listing/:id/review/:reviewId", async (req, res) => {
-  let { id ,reviewId} = req.params;
+  let { id, reviewId } = req.params;
   let revDelete = await Review.findByIdAndDelete(reviewId);
-  let upDATElist = await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId} })  
+  let upDATElist = await Listing.findByIdAndUpdate(id, {
+    $pull: { reviews: reviewId },
+  });
   res.redirect(`/listing/${id}`);
 });
 //--------------------------------admin page starts-------------------------------------------
 //admin update route
-app.get("/admin", async (req, res) => {
+app.get("/admin",isLogin, async (req, res) => {
   let lists = await Listing.find({});
   res.render("admin/update.ejs", { lists });
 });
@@ -96,7 +119,7 @@ app.get("/admin", async (req, res) => {
 // edit route
 app.get("/admin/:id", async (req, res) => {
   let { id } = req.params;
-  let Details = await Listing.findById(id).populate("reviews");
+  let Details = await Listing.findById(id).populate("reviews").populate("owner");
   // console.log(listDetails);
   res.render("admin/edit.ejs", { Details });
 });
@@ -106,7 +129,7 @@ app.get("/create", async (req, res) => {
 });
 
 // new route
-app.post("/create/new", (req, res) => {
+app.post("/create/new", async(req, res) => {
   let {
     title,
     description,
@@ -119,6 +142,7 @@ app.post("/create/new", (req, res) => {
     image2,
   } = req.body;
   console.log(req.body);
+
   let Datanew = new Listing({
     title: title,
     description: description,
@@ -129,7 +153,9 @@ app.post("/create/new", (req, res) => {
     discount: discount,
     location: location,
     country: country,
+    owner:req.user._id,
   });
+  
   Datanew.save()
     .then(() => {
       console.log("add data ");
@@ -137,7 +163,7 @@ app.post("/create/new", (req, res) => {
     .catch((err) => {
       next(err);
     });
-  req.flash("success","new Hotel add now ");
+  req.flash("success", "new Hotel add now ");
   res.redirect("/admin");
 });
 // update route
@@ -185,9 +211,9 @@ app.get("/admin/:id/delete", async (req, res) => {
 });
 // Review  page delete
 app.delete("/admin/:id/review/:reviewId", async (req, res) => {
-  let { id ,reviewId} = req.params;
+  let { id, reviewId } = req.params;
   await Review.findByIdAndDelete(reviewId);
-  await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId} })  
+  await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
   res.redirect(`/admin/${id}`);
 });
 // listing jsfile daa insert

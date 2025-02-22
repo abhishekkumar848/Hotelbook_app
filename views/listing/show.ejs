@@ -243,9 +243,11 @@
     <div class="container">
       <div class="left-content">
         <h1><%= listDetails.title %></h1>
+        <h5 style="font-weight: 800; color:#0073e6">Owner : <%= listDetails.owner.username %></h5>
         <p><%= listDetails.description %></p>
         <div class="user-info">
           <img src="<%= listDetails.image %>" alt="User Image" />
+          <br>
           <span><%= listDetails.location %> / <%= listDetails.country %></span>
         </div>
         <p>⭐⭐⭐⭐⭐ 4.9</p>
@@ -272,7 +274,7 @@
             alt="Credit Card Image"
             style="height: 300px"
           />
-          <p class="price-tag">₹<%= listDetails.price %>8 Rupee</p>
+          <p class="price-tag">₹<%= listDetails.price %></p>
         </div>
       </div>
     </div>

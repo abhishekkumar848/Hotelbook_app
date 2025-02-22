@@ -27,53 +27,6 @@
             background-color: #f0f2f5;
             color: #333;
         }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .navbar .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #0073e6;
-        }
-        .navbar .menu {
-            display: flex;
-            gap: 15px;
-        }
-        .navbar .menu a, .navbar button {
-            text-decoration: none;
-            color: #333;
-            padding: 8px 12px;
-            transition: background 0.3s ease;
-        }
-        .navbar button {
-            background-color: #0073e6;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .navbar button:hover {
-            background-color: #005bb5;
-        }
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .navbar .menu {
-                flex-direction: column;
-                width: 100%;
-            }
-            .navbar .menu a, .navbar button {
-                width: 100%;
-                text-align: center;
-            }
-        }
         .container {
             max-width: 1000px;
             background: white;
@@ -259,16 +212,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">alloy</div>
-        <div class="menu">
-            <a href="#">Products</a>
-            <a href="#">Integrations</a>
-            <a href="#">Resources</a>
-            <a href="#">Login</a>
-            <button>Try it free</button>
-        </div>
-    </nav>
+    <%- include("../include/navbar.ejs") %>
     <div class="container">
         <form action="/admin/<%=Details._id%>/update/?_method=PUT" method="post">
             <div class="left-content">
