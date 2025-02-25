@@ -2,14 +2,9 @@ const Listing = require("../models/listing");
 const Coustomer = require("../models/customer");
 
 const Review = require("../models/reviews");
-    
-
 module.exports.home = async (req, res) => {
-  let { username } = req.user;
-  let customer = await Coustomer.findOne({username});
-  console.log(customer);
   let lists = await Listing.find({});
-  res.render("listing/home.ejs", { lists ,customer });
+  res.render("listing/home.ejs", { lists  });
 } 
  
 module.exports.show =async (req, res, next) => {

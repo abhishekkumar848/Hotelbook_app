@@ -6,7 +6,7 @@ module.exports.isLogin = (req,res,next)=>{
 };
 
 module.exports.isUser = (req,res,next)=>{
-  if (!req.isAuthenticated()) {
+  if (req.isAuthenticated()) {
       return res.redirect("/login/user")
   }
     next() 

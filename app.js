@@ -61,7 +61,7 @@ app.use((req, res, next) => {
   res.locals.msg = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
-  
+  res.locals.currCoustomer = req.Coustomer;
 
   next();
 });
@@ -148,7 +148,7 @@ console.log(url,filename);
   res.redirect("/admin");
 });
 // update route
-app.put("/admin/:id/update", async (req, res) => {
+app.put("/admin/:id/update", upload.single('image'),async (req, res) => {
   try {
     let { id } = req.params;
     let {
@@ -177,6 +177,13 @@ app.put("/admin/:id/update", async (req, res) => {
       },
       { new: true }
     );
+    if (typeof req.file  !== "undefined") {
+      let url = req.file.path;
+let filename = req.file.filename;
+updateData.image ={url,filename}
+    await updateData.save();
+      
+    }
     console.log(updateData);
     res.redirect("/admin");
   } catch (err) {

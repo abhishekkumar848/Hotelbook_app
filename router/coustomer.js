@@ -27,7 +27,7 @@ router.post("/signup/user", async (req, res, next) => {
 router.get("/login/user", async (req, res) => {
     res.render("userlogin/login.ejs")
 });
-router.post("/login/user", passport.authenticate("local", { failureRedirect: "/login/user" }), async (req, res) => {
+router.post("/login/user", passport.authenticate("local", {failureRedirect: "/login/user"}), async (req, res) => {
     res.redirect("/listing")
 });
 // user logout

@@ -214,7 +214,7 @@
 <body>
     <%- include("../include/navbar.ejs") %>
     <div class="container">
-        <form action="/admin/<%=Details._id%>/update/?_method=PUT" method="post">
+        <form action="/admin/<%=Details._id%>/update/?_method=PUT" method="post" enctype="multipart/form-data">
             <div class="left-content">
                 <h1><!-- From Uiverse.io by tranquoclong --> 
                     <div class="inputGroup">
@@ -248,8 +248,8 @@
                     <label for="name">Discount</label>
                 </div>
                 <div class="inputGroup">
-                    <input name="image" value="<%= Details.image.url %>">
-                    <label for="name">Image</label>
+                    <input name="image" type="file"  >
+                    <label for="name">Image upload</label>
                 </div>
                 <div class="inputGroup">
                     <input name="image1" value="<%= Details.image1 %>">
@@ -267,7 +267,7 @@
             <div class="card">
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img src="<%= Details.image %>" alt=""></div>
+                        <div class="swiper-slide"><img src="<%= Details.image.url %>" alt=""></div>
                         <div class="swiper-slide"><img src="<%= Details.image1 %>" alt=""></div>
                         <div class="swiper-slide"><img src="<%= Details.image2 %>" alt=""></div>
                     </div>
