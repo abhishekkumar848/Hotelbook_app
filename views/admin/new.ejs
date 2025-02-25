@@ -71,7 +71,7 @@
         <h1>Over 174,000+ hotels and homes across 35+ countries</h1>
         <p>World's leading chain of hotels and homes.</p>
         <br>
-        <form action="/create/new" method="post"  >
+        <form action="/create/new" method="post"  enctype="multipart/form-data"> >
             <div class="form-group">
                 <label for="location">Title</label>
                 <input type="text"  name="title" required>
@@ -98,7 +98,7 @@
             </div>
             <div class="form-group">
                 <label for="image1">Image 1 URL</label>
-                <input type="text" name="image" required >
+                <input type="file" name="image" required >
             </div>
             <div class="form-group">
                 <label for="image2">Image 2 URL</label>

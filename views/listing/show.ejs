@@ -246,7 +246,7 @@
         <h5 style="font-weight: 800; color:#0073e6">Owner : <%= listDetails.owner.username %></h5>
         <p><%= listDetails.description %></p>
         <div class="user-info">
-          <img src="<%= listDetails.image %>" alt="User Image" />
+          <img src="<%= listDetails.image.url %>" alt="User Image" />
           <br>
           <span><%= listDetails.location %> / <%= listDetails.country %></span>
         </div>
@@ -258,7 +258,7 @@
           <div class="swiper mySwiper">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <img src="<%= listDetails.image %>" alt="" />
+                <img src="<%= listDetails.image.url %>" alt="" />
               </div>
               <div class="swiper-slide">
                 <img src="<%= listDetails.image1 %>" alt="" />

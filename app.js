@@ -17,6 +17,10 @@ const couRouter = require("./router/coustomer");
 const {isLogin,isUser} = require("./middleware")
 const Coustomer = require("./models/customer");
 const { home ,show,review ,reviewDelete } = require("./controllers/listing");
+require('dotenv').config()
+const{ storage } = require('./CloudConfig')
+const multer  = require('multer')
+const upload = multer({ storage })
 
 
 app.use(methodOverride("_method"));
@@ -102,7 +106,7 @@ app.get("/create", async (req, res) => {
 });
 
 // new route
-app.post("/create/new", async(req, res) => {
+app.post("/create/new", upload.single('image'),async(req, res) => {
   let {
     title,
     description,
@@ -116,7 +120,10 @@ app.post("/create/new", async(req, res) => {
     admin
   } = req.body;
   console.log(req.body);
-
+let url = req.file.path;
+let filename = req.file.filename;
+console.log(url,filename);
+  image ={url,filename}
   let Datanew = new Listing({
     title: title,
     description: description,
