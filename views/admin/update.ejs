@@ -335,42 +335,43 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
           <% for( list of lists ) { %>
             <% if (currUser._id.equals(list.owner._id)) { %>
-          <div class="col">
-            <div class="card">
-              <img src="<%= list.image %>" alt="Card Image" />
-              <div class="card-content">
-                <div class="card-title"><%= list.title %></div>
-                <div class="card-text"><%= list. description %></div>
+              <div class="col">
+                <div class="card">
+                  <img src="<%= list.image %>" alt="Card Image" />
+                  <div class="card-content">
+                    <div class="card-title"><%= list.title %></div>
+                    <div class="card-text"><%= list. description %></div>
+                  </div>
+                  <div class="additional-info">
+                    <p class="price">Price:<%= list.price %></p>
+                    <p class="discount">Discount:<%= list.discount %>% off</p>
+                    <p>Location: <%= list.location %></p>
+                    <p>Country: <%= list.country %></p>
+                  </div>
+                  <div class="card-footer">
+                    <!-- <form action="/listing/<%= list._id %>" method="get">
+                                        <button class="time-tag"><span class="time-tag">Explore</span></button>
+                                    </form> -->
+                    
+                      
+                   
+                    <form action="/admin/<%= list._id %>" method="get">
+                      <button class="time-tag">
+                        <span class="time-tag">MODIFY</span>
+                      </button>
+                    </form>
+                    <form action="/admin/<%= list._id %>/delete" method="get">
+                      <button class="time-tag red">
+                        <span class="time-tag red">Delete</span>
+                      </button>
+                    </form>
+                    <span class="star-rating">★★★★☆</span>
+                  </div>
+                </div>
               </div>
-              <div class="additional-info">
-                <p class="price">Price:<%= list.price %></p>
-                <p class="discount">Discount:<%= list.discount %>% off</p>
-                <p>Location: <%= list.location %></p>
-                <p>Country: <%= list.country %></p>
-              </div>
-              <div class="card-footer">
-                <!-- <form action="/listing/<%= list._id %>" method="get">
-                                    <button class="time-tag"><span class="time-tag">Explore</span></button>
-                                </form> -->
-                
-                  
-               
-                <form action="/admin/<%= list._id %>" method="get">
-                  <button class="time-tag">
-                    <span class="time-tag">MODIFY</span>
-                  </button>
-                </form>
-                <form action="/admin/<%= list._id %>/delete" method="get">
-                  <button class="time-tag red">
-                    <span class="time-tag red">Delete</span>
-                  </button>
-                </form>
-                <span class="star-rating">★★★★☆</span>
-              </div>
-            </div>
-          </div>
+            <% } %>
           <% } %>
-          <% } %>
+
         </div>
       </div>
     </div>

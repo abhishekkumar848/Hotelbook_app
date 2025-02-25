@@ -1,5 +1,6 @@
 
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 
 const ReviewSchema = new mongoose.Schema({
@@ -15,6 +16,10 @@ const ReviewSchema = new mongoose.Schema({
      type:Date,
      default:Date.now()
     },
+    auther :{
+        type:Schema.Types.ObjectId,
+        ref:"Coustomer"
+    }
 })
 
 const Review = mongoose.model("Review",ReviewSchema);

@@ -13,7 +13,11 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const userRouter = require("./router/user");
-const {isLogin} = require("./middleware")
+const couRouter = require("./router/coustomer");
+const {isLogin,isUser} = require("./middleware")
+const Coustomer = require("./models/customer");
+const { home ,show,review ,reviewDelete } = require("./controllers/listing");
+
 
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
@@ -36,7 +40,7 @@ app.use(
 // flash message
 app.use(flash());
 // passport
-
+//admin passport
 app.use(passport.initialize());
 app.use(passport.session());
 // use static authenticate method of model in LocalStrategy
@@ -44,11 +48,17 @@ passport.use(new LocalStrategy(User.authenticate()));
 // use static serialize and deserialize of model for passport session support
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+//user passport
+passport.use(new LocalStrategy(Coustomer.authenticate()));
+passport.serializeUser(Coustomer.serializeUser());
+passport.deserializeUser(Coustomer.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.msg = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
+  
+
   next();
 });
 
@@ -59,56 +69,17 @@ app.get("/", async (req, res) => {
   res.render("root.ejs", { lists });
 });
 // user signup
+app.use("/",couRouter)
 app.use("/", userRouter);
 
-// ADD DEMO USER
-// app.get("/user",async (req,res)=>{
-//  let user1 = new User({
-//   email:"abhi@gmail.com",
-//   username:"Abhishek"
-//  });
-
-//  let result = await User.register(user1,"hello")
-//  console.log(result);
-//  res.send(result);
-// })
 // home route
-app.get("/listing", async (req, res) => {
-  let lists = await Listing.find({});
-  res.render("listing/home.ejs", { lists });
-});
+app.get("/listing", isUser,home);
 // show route
-app.get("/listing/:id", async (req, res, next) => {
-  try {
-    let { id } = req.params;
-    let listDetails = await Listing.findById(id).populate("reviews").populate("owner");
-    // console.log(listDetails);
-    res.render("listing/show.ejs", { listDetails });
-    console.log(listDetails)
-  } catch (err) {
-    next(err);
-  }
-});
+app.get("/listing/:id", show);
 // Review  page add
-app.post("/listing/:id/review", async (req, res) => {
-  let addListing = await Listing.findById(req.params.id);
-  let newReview = new Review(req.body.review);
-
-  addListing.reviews.push(newReview);
-  await addListing.save();
-  await newReview.save();
-  console.log("hello", addListing, newReview);
-  res.redirect(`/listing/${addListing._id}`);
-});
-//review delete
-app.delete("/listing/:id/review/:reviewId", async (req, res) => {
-  let { id, reviewId } = req.params;
-  let revDelete = await Review.findByIdAndDelete(reviewId);
-  let upDATElist = await Listing.findByIdAndUpdate(id, {
-    $pull: { reviews: reviewId },
-  });
-  res.redirect(`/listing/${id}`);
-});
+app.post("/listing/:id/review",review );
+//reviewDelete
+app.delete("/listing/:id/review/:reviewId",reviewDelete );
 //--------------------------------admin page starts-------------------------------------------
 //admin update route
 app.get("/admin",isLogin, async (req, res) => {
@@ -125,7 +96,9 @@ app.get("/admin/:id", async (req, res) => {
 });
 // create new room
 app.get("/create", async (req, res) => {
-  res.render("admin/new.ejs");
+  let admin = req.user;
+  console.log(admin);
+  res.render("admin/new.ejs",{admin});
 });
 
 // new route
@@ -140,6 +113,7 @@ app.post("/create/new", async(req, res) => {
     image,
     image1,
     image2,
+    admin
   } = req.body;
   console.log(req.body);
 
@@ -153,9 +127,9 @@ app.post("/create/new", async(req, res) => {
     discount: discount,
     location: location,
     country: country,
-    owner:req.user._id,
+    owner:admin,
   });
-  
+  console.log(Datanew);
   Datanew.save()
     .then(() => {
       console.log("add data ");
